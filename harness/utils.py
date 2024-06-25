@@ -244,12 +244,16 @@ def clone_repo(repo_name: str, path: str, token: str = None) -> bool:
     try:
         if token is None:
             token = os.environ.get("GITHUB_TOKEN", "git")
-        repo_url = (
-            f"https://{token}@github.com/swe-bench/"
-            + repo_name.replace("/", "__")
-            + ".git"
-        )
-        Repo.clone_from(repo_url, path)
+        src_path = "/opt/swe-files/" + repo_name.replace("/", "__")
+        if os.path.isdir(src_path):
+            os.system(f"cp -r {src_path} {path}")
+        else:
+            repo_url = (
+                f"https://{token}@github.com/swe-bench/"
+                + repo_name.replace("/", "__")
+                + ".git"
+            )
+            Repo.clone_from(repo_url, path)
         return True
     except Exception as e:
         print(e)

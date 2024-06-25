@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 RUN apt update && apt install -y git wget bash gcc git jq wget libffi-dev
 
 WORKDIR /root
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash ./Miniconda3-latest-Linux-x86_64.sh -b -p /root/miniconda3
 ENV PATH="/root/miniconda3/bin:${PATH}"
 RUN conda init
